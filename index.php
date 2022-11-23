@@ -78,18 +78,22 @@ echo '<script>var json ='.$response .
             console.log(json['matches'][key]["awayTeam"]["crest"])
             t+= `<div class="w-3/4 h-20 bg-slate-800 rounded-lg shadow-lg drop-shadow-lg pointer flex justify-between items-center text-white mt-5"> <div class="away w-2/6 h-full   flex justify-center items-center" ><div class="logo relative flex justify-center items-center hidden md:block">`
             t+= `<img src="${json['matches'][key]["awayTeam"]["crest"]}" class="w-20 rounded-lg" alt=""></div> <span class="w-5 hidden md:block"></span> <div class="name flex justify-center items-center font-bold">${json['matches'][key]["awayTeam"]["name"]}</div></div>`
-            t+= `<div class="status text-2xl font-bold   w-2/6 h-full  flex justify-center items-center ${json['matches'][key]["status"]}">`
             if(json['matches'][key]["score"]["fullTime"]["away"]==null)
             {
-                var x = json['matches'][key]["utcDate"].substr(8, 10)
+                var x = json['matches'][key]["utcDate"].substr(8,2)
+
                 if(x == dd){
-                    t += json['matches'][key]["utcDate"].subste(11,16)
+            t+= `<div class="status text-2xl font-bold   w-2/6 h-full  flex justify-center items-center bg-green-600">`
+                    t += json['matches'][key]["utcDate"].substr(11,5)
+                    t += ` (GMT)`
                 }
                 else{
+                t+= `<div class="status text-xl font-bold   w-2/6 h-full  flex justify-center items-center ${json['matches'][key]["status"]}">`
                     t += json['matches'][key]["utcDate"].substr(0, 10)
                 }
             }
             else{
+            t+= `<div class="status text-2xl font-bold   w-2/6 h-full  flex justify-center items-center ${json['matches'][key]["status"]}">`
                 t+=`${json['matches'][key]["score"]["fullTime"]["away"]} : ${json['matches'][key]["score"]["fullTime"]["home"]}`
                 
             }
